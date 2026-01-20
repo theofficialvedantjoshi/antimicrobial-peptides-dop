@@ -9,4 +9,6 @@ dependencies = [
     "numpy>=2.4.1",
     "openpyxl>=3.1.5",
     "pandas>=2.3.3",
+    "scikit-learn>=1.8.0",
+    "ujson>=5.11.0",
 ]

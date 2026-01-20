@@ -1,0 +1,15 @@
+{
+    "splits": 10,
+    "test_size": 0.2,
+    "random_state": 42,
+    "train_distribution": {
+        "positive, negative": 0.7158943265482893,
+        "positive": 0.1667388479861412,
+        "negative": 0.11736682546556951
+    },
+    "test_distribution": {
+        "positive, negative": 0.7162629757785467,
+        "positive": 0.16608996539792387,
+        "negative": 0.11764705882352941
+    }
+}
