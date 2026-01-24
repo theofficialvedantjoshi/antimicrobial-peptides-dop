@@ -9,51 +9,41 @@ SPLITS = 10
 TEST_SIZE = 0.2
 RANDOM_STATE = 42
 
-df = pd.read_csv(ROOT + "raw_data.csv")
-
-X = df.drop(columns=["Activity"], axis=1)
-y = df["Activity"]
-
 sss = StratifiedShuffleSplit(
     n_splits=SPLITS, test_size=TEST_SIZE, random_state=RANDOM_STATE
 )
 
 metrics = {"splits": SPLITS, "test_size": TEST_SIZE, "random_state": RANDOM_STATE}
 
+df = pd.read_csv(ROOT + "raw_data.csv")
+
+frms, scaler_metrics = generate_frms(df)
+
 
 def sample() -> None:
-    for idx, (train_idx, test_idx) in enumerate(sss.split(X, y)):
-        train_df = df.iloc[train_idx]
-        test_df = df.iloc[test_idx]
+    for feature in frms.keys():
+        X = frms[feature].drop(columns=["Activity"], axis=1)
+        y = frms[feature]["Activity"]
+        for idx, (train_idx, test_idx) in enumerate(sss.split(X, y)):
+            train_df = frms[feature].iloc[train_idx]
+            test_df = frms[feature].iloc[test_idx]
 
-        train_frms, train_scaler_metrics = generate_frms(train_df)
-        test_frms, test_scaler_metrics = generate_frms(test_df)
-
-        for key in train_frms.keys():
-            train_frms[key].to_csv(
-                ROOT + f"train/{key}/train_{key}_{idx+1}.csv", index=False
+            train_df.to_csv(
+                ROOT + f"train/{feature}/train_{feature}_{idx+1}.csv", index=False
             )
-            test_frms[key].to_csv(
-                ROOT + f"test/{key}/test_{key}_{idx+1}.csv", index=False
+            test_df.to_csv(
+                ROOT + f"test/{feature}/test_{feature}_{idx+1}.csv", index=False
             )
 
-        with open(
-            ROOT + f"train/pcp/normalization/scaler_metrics_{idx+1}.json", "w"
-        ) as f:
-            ujson.dump(train_scaler_metrics, f, indent=4)
+            metrics["train_distribution"] = (
+                train_df["Activity"].value_counts(normalize=True).to_dict()
+            )
+            metrics["test_distribution"] = (
+                test_df["Activity"].value_counts(normalize=True).to_dict()
+            )
 
-        with open(
-            ROOT + f"test/pcp/normalization/scaler_metrics_{idx+1}.json", "w"
-        ) as f:
-            ujson.dump(test_scaler_metrics, f, indent=4)
-
-        metrics["train_distribution"] = (
-            train_df["Activity"].value_counts(normalize=True).to_dict()
-        )
-        metrics["test_distribution"] = (
-            test_df["Activity"].value_counts(normalize=True).to_dict()
-        )
-
+    with open(ROOT + "pcp_normalization.json", "w") as f:
+        ujson.dump(scaler_metrics, f, indent=4)
     with open(ROOT + "sampling_metrics.json", "w") as f:
         ujson.dump(metrics, f, indent=4)
 
