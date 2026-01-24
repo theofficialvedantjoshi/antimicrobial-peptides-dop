@@ -1,5 +1,8 @@
+from scripts.sampling import sample
+
+
 def main():
-    pass
+    sample()
 
 
 if __name__ == "__main__":
