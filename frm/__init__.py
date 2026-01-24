@@ -8,11 +8,16 @@ from frm.pcp import PCP_FEATURES, calculate_pcp
 
 def generate_frms(df: pd.DataFrame) -> tuple[dict[str, pd.DataFrame], dict]:
     aac_df = pd.DataFrame(df["Sequence"].apply(calculate_aac).to_list())
+    aac_df.index = df.index
     cht_df = pd.DataFrame(df["Sequence"].apply(calculate_cht).to_list())
+    cht_df.index = df.index
 
     pcp_df = pd.DataFrame(df["Sequence"].apply(calculate_pcp).to_list())
+    pcp_df.index = df.index
     scaler = MinMaxScaler()
-    pcp_df = pd.DataFrame(scaler.fit_transform(pcp_df), columns=pcp_df.columns)
+    pcp_df = pd.DataFrame(
+        scaler.fit_transform(pcp_df), columns=pcp_df.columns, index=df.index
+    )
 
     combination_df = pd.concat([df, aac_df, cht_df, pcp_df], axis=1)
     combination_df["Activity"] = combination_df.pop("Activity")
