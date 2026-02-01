@@ -17,17 +17,19 @@ metrics = {"splits": SPLITS, "test_size": TEST_SIZE, "random_state": RANDOM_STAT
 
 df = pd.read_csv(ROOT + "raw_data.csv")
 
-frms, scaler_metrics = generate_frms(df)
+scaler_metrics: list[dict] = []
 
 
 def sample() -> None:
-    for feature in frms.keys():
-        X = frms[feature].drop(columns=["Activity"], axis=1)
-        y = frms[feature]["Activity"]
-        for idx, (train_idx, test_idx) in enumerate(sss.split(X, y)):
-            train_df = frms[feature].iloc[train_idx]
-            test_df = frms[feature].iloc[test_idx]
+    X = df.drop(columns=["Activity"], axis=1)
+    y = df["Activity"]
+    for idx, (train_idx, test_idx) in enumerate(sss.split(X, y)):
+        train_frms, scaler_metrics_i, scaler = generate_frms(df.iloc[train_idx])
+        test_frms, _, _ = generate_frms(df.iloc[test_idx], scaler)
 
+        for feature in train_frms.keys():
+            train_df = train_frms[feature]
+            test_df = test_frms[feature]
             train_df.to_csv(
                 ROOT + f"train/{feature}/train_{feature}_{idx+1}.csv", index=False
             )
@@ -41,6 +43,8 @@ def sample() -> None:
             metrics["test_distribution"] = (
                 test_df["Activity"].value_counts(normalize=True).to_dict()
             )
+
+        scaler_metrics.append(scaler_metrics_i)
 
     with open(ROOT + "pcp_normalization.json", "w") as f:
         ujson.dump(scaler_metrics, f, indent=4)

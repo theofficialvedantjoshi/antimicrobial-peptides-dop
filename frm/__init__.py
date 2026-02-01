@@ -6,7 +6,9 @@ from frm.cht import calculate_cht
 from frm.pcp import PCP_FEATURES, calculate_pcp
 
 
-def generate_frms(df: pd.DataFrame) -> tuple[dict[str, pd.DataFrame], dict]:
+def generate_frms(
+    df: pd.DataFrame, scaler: MinMaxScaler | None = None
+) -> tuple[dict[str, pd.DataFrame], dict, MinMaxScaler]:
     aac_df = pd.DataFrame(df["Sequence"].apply(calculate_aac).to_list())
     aac_df.index = df.index
     cht_df = pd.DataFrame(df["Sequence"].apply(calculate_cht).to_list())
@@ -14,10 +16,15 @@ def generate_frms(df: pd.DataFrame) -> tuple[dict[str, pd.DataFrame], dict]:
 
     pcp_df = pd.DataFrame(df["Sequence"].apply(calculate_pcp).to_list())
     pcp_df.index = df.index
-    scaler = MinMaxScaler()
-    pcp_df = pd.DataFrame(
-        scaler.fit_transform(pcp_df), columns=pcp_df.columns, index=df.index
-    )
+    if scaler is None:
+        scaler = MinMaxScaler(clip=True)
+        pcp_df = pd.DataFrame(
+            scaler.fit_transform(pcp_df), columns=pcp_df.columns, index=df.index
+        )
+    else:
+        pcp_df = pd.DataFrame(
+            scaler.transform(pcp_df), columns=pcp_df.columns, index=df.index
+        )
 
     combination_df = pd.concat([df, aac_df, cht_df, pcp_df], axis=1)
     combination_df["Activity"] = combination_df.pop("Activity")
@@ -33,9 +40,13 @@ def generate_frms(df: pd.DataFrame) -> tuple[dict[str, pd.DataFrame], dict]:
         "min": dict(zip(PCP_FEATURES, scaler.data_min_)),
         "max": dict(zip(PCP_FEATURES, scaler.data_max_)),
     }
-    return {
-        "aac": aac_df,
-        "cht": cht_df,
-        "pcp": pcp_df,
-        "combination": combination_df,
-    }, scaler_metrics
+    return (
+        {
+            "aac": aac_df,
+            "cht": cht_df,
+            "pcp": pcp_df,
+            "combination": combination_df,
+        },
+        scaler_metrics,
+        scaler,
+    )
