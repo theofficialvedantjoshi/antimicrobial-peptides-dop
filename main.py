@@ -1,8 +1,12 @@
 from scripts.sampling import sample
+from pipeline import Pipeline
+
+p = Pipeline()
 
 
 def main():
-    sample()
+    p.run()
+    # sample()
 
 
 if __name__ == "__main__":
