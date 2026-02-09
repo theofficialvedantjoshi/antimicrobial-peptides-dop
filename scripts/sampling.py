@@ -1,5 +1,5 @@
 import pandas as pd
-import ujson
+import orjson
 from sklearn.model_selection import StratifiedShuffleSplit
 
 from frm import generate_frms
@@ -46,10 +46,10 @@ def sample() -> None:
 
         scaler_metrics.append(scaler_metrics_i)
 
-    with open(ROOT + "pcp_normalization.json", "w") as f:
-        ujson.dump(scaler_metrics, f, indent=4)
-    with open(ROOT + "sampling_metrics.json", "w") as f:
-        ujson.dump(metrics, f, indent=4)
+    with open(ROOT + "pcp_normalization.json", "wb") as f:
+        f.write(orjson.dumps(scaler_metrics, option=orjson.OPT_INDENT_2))
+    with open(ROOT + "sampling_metrics.json", "wb") as f:
+        f.write(orjson.dumps(metrics, option=orjson.OPT_INDENT_2))
 
     print("Sampling completed")
     print(f"Splits generated: {SPLITS}")

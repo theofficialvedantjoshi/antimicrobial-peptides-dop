@@ -1,5 +1,5 @@
 import numpy as np
-import ujson
+import orjson
 from modlamp.descriptors import GlobalDescriptor
 
 PCP_FEATURES = [
@@ -29,7 +29,7 @@ PCP_FEATURES = [
 
 def get_properties() -> list[dict]:
     with open("frm/pcp_properties.json", "r") as f:
-        properties = ujson.load(f)
+        properties = orjson.loads(f.read())
     return properties
 
 

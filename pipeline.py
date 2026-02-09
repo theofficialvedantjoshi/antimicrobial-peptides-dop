@@ -2,7 +2,7 @@ import os
 
 import numpy as np
 import pandas as pd
-import ujson
+import orjson
 from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
 from sklearn.metrics import (
     accuracy_score,
@@ -114,7 +114,7 @@ class Pipeline:
     def _load_hyperparameters(self, model: str = "mlknn") -> bool:
         try:
             with open(os.path.join(ROOT, model, "hyperparameters.json"), "r") as f:
-                self.hyperparams = ujson.load(f)
+                self.hyperparams = orjson.loads(f.read())
         except FileNotFoundError:
             return False
         return True
@@ -123,8 +123,8 @@ class Pipeline:
         if self.hyperparams is None:
             return
 
-        with open(os.path.join(ROOT, model, "hyperparameters.json"), "w") as f:
-            ujson.dump(self.hyperparams, f)
+        with open(os.path.join(ROOT, model, "hyperparameters.json"), "wb") as f:
+            f.write(orjson.dumps(self.hyperparams, option=orjson.OPT_INDENT_2))
 
     def _save_predictions(
         self, predictions: dict[str, list[dict[str, list]]], model: str = "mlknn"
@@ -158,8 +158,8 @@ class Pipeline:
     def _save_results(
         self, results: dict[str, list[dict[str, float]]], model: str = "mlknn"
     ) -> None:
-        with open(os.path.join(ROOT, model, "results.json"), "w") as f:
-            ujson.dump(results, f)
+        with open(os.path.join(ROOT, model, "results.json"), "wb") as f:
+            f.write(orjson.dumps(results, option=orjson.OPT_INDENT_2))
 
     def run(self) -> None:
         if not self._load_hyperparameters():
