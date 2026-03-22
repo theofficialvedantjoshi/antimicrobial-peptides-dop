@@ -1,11 +1,14 @@
 from scripts.sampling import sample
 from pipeline import Pipeline
 
+MODELS = ["mlknn", "mltsvm"]
 p = Pipeline()
 
 
 def main():
-    p.run()
+    # for model in MODELS:
+    p.run("mlknn")
+    p.run("mltsvm")
     # sample()
 
 

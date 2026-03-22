@@ -1,0 +1,210 @@
+{
+  "aac": [
+    {
+      "c_k": 0.03125,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 0.03125,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.03125,
+      "sor_omega": 1.1
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.03125,
+      "sor_omega": 1.2
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.0625,
+      "sor_omega": 1.1
+    },
+    {
+      "c_k": 0.03125,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.03125,
+      "sor_omega": 1.2
+    }
+  ],
+  "cht": [
+    {
+      "c_k": 2,
+      "lambda_param": 1,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 1,
+      "sor_omega": 0.9
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 1,
+      "sor_omega": 0.9
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.5,
+      "sor_omega": 0.8
+    },
+    {
+      "c_k": 0.03125,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.25,
+      "sor_omega": 0.9
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.03125,
+      "sor_omega": 1.1
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 2,
+      "sor_omega": 0.9
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.5,
+      "sor_omega": 1.1
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.5,
+      "sor_omega": 0.8
+    }
+  ],
+  "pcp": [
+    {
+      "c_k": 1,
+      "lambda_param": 0.0625,
+      "sor_omega": 1.2
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 1,
+      "sor_omega": 0.8
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 0.25,
+      "sor_omega": 1.1
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.125,
+      "sor_omega": 0.8
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.03125,
+      "sor_omega": 1.2
+    },
+    {
+      "c_k": 0.03125,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 1,
+      "sor_omega": 0.9
+    },
+    {
+      "c_k": 0.03125,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 1,
+      "sor_omega": 0.9
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 2,
+      "sor_omega": 0.7
+    }
+  ],
+  "combination": [
+    {
+      "c_k": 1,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.8
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.03125,
+      "sor_omega": 1.2
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.0625,
+      "sor_omega": 1.2
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.25,
+      "sor_omega": 0.8
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.8
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.0625,
+      "sor_omega": 0.7
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.03125,
+      "sor_omega": 0.9
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.0625,
+      "sor_omega": 1.1
+    },
+    {
+      "c_k": 2,
+      "lambda_param": 1,
+      "sor_omega": 0.8
+    },
+    {
+      "c_k": 1,
+      "lambda_param": 0.125,
+      "sor_omega": 0.7
+    }
+  ]
+}
