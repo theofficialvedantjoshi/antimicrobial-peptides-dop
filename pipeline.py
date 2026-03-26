@@ -221,7 +221,8 @@ class Pipeline:
                     hyperparams[feature].append(params)
             self.hyperparams[model] = hyperparams
             self._save_hyperparameters(model)
-        self._save_hyperparameters(model)
+        else:
+            self._save_hyperparameters(model)
         if self.hyperparams is None:
             return
 
